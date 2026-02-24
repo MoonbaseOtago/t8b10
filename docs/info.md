@@ -9,12 +9,12 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+Contains 8b10 encoder and decoder, 9-bit symbols can be pushed in and results pop out a bunch of clocks later
 
 ## How to test
 
-Explain how to use your project
+To be added
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Can be tested manually using the PCB
