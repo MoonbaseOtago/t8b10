@@ -44,7 +44,6 @@ module des8b10(input clk, input reset, input din,
 	//		there are no runt clocks (as a side effect we miss the next symbol in the stream)
     //
 
-	reg		 r_resync;
 	reg		 r_clk10;	
 	assign clk10 = r_clk10;
 	reg		 r_reset;
@@ -68,14 +67,12 @@ module des8b10(input clk, input reset, input din,
         r_clk10 <= 0;
         r_reset <= 1;
 		r_syncing <= 1;
-		r_resync <= 0;
 		r_synced <= 0;
     end else
 	if (((r_shift[7:0]==8'b01111100) || (r_shift[7:0]==8'b10000011)) && (!r_synced || r_count != 0)) begin
 		r_count <= 19;		// wait a clock so we can stretch clk10 cleanly, we'll miss the next symbol
 		r_syncing <= 0;
 		r_synced <= 1;
-		r_resync <= 1;
 	end else begin
 		if (r_syncing || r_start_sync) begin
 			r_synced <= 0;
@@ -89,7 +86,7 @@ module des8b10(input clk, input reset, input din,
             case (r_count)
 			14:r_clk10 <= 0;
             5: r_clk10 <= 1;
-            1: begin r_reset <= 0; r_resync <= 0;end
+            1: begin r_reset <= 0; end
             default:;
             endcase
             r_count <= r_count - 1;
@@ -155,7 +152,7 @@ module des8b10(input clk, input reset, input din,
 	end
 
 	reg [4:0]dl;
-	reg      k28, lerr;
+	reg      lerr;
 	always @(*) begin
 		lerr = 0;
 		dl = 5'bx;

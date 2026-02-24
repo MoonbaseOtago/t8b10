@@ -27,8 +27,8 @@ module tt_um_8b10 (
 
 
 
-	assign uo_out[0] = 0;
-	assign uo_out[4] = 0;
+	assign uio_out[0] = 0;
+	assign uio_out[4] = 0;
 	assign uio_oe = 8'b1110_1110;
 	wire x1, x2, x3;
 	ser8b10 s8b10(.clk(clk), .reset(r_reset), .dout(uio_out[2]),
@@ -43,5 +43,5 @@ module tt_um_8b10 (
 			.clk10(uio_out[5]), .reset10(x2), .align(x3),
 			.ready(uio_out[3]), .synced(uio_out[7]));
 
-
+	  wire _unused = &{ena, x1, x2, x3, uio_in[7:5], uio_in[3:1], 1'b0};
 endmodule
