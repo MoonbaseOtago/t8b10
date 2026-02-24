@@ -55,7 +55,7 @@ module des8b10(input clk, input reset, input din,
 	reg [4:0]r_count;
 	always @(posedge clk) begin
 		r_shift <= {din, r_shift[8:1]};
-		r_start_sync <= start_sync&!r_syncing;
+		r_start_sync <= start_sync&!r_syncing&!r_synced;
 	end
 
 	reg		 r_synced;
