@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_8b10 (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -16,12 +16,32 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+	reg r_reset;
+	reg r_scramble;
+	always @(posedge clk)
+		r_reset <= ~rst_n;
 
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+	always @(posedge clk)
+	if (~rst_n)
+		r_scramble <= ui_in[0];
+
+
+
+	assign uo_out[0] = 0;
+	assign uo_out[4] = 0;
+	assign uio_oe = 8'b1110_1110;
+	wire x1, x2, x3;
+	ser8b10 s8b10(.clk(clk), .reset(r_reset), .dout(uio_out[2]),
+			      .scramble(r_scramble),
+			      .clk10(uio_out[6]), .reset10(x1), .k(uio_in[0]), .in(ui_in), .ready(uio_in[4]));
+
+	des8b10 d10b8(.clk(clk), .reset(r_reset), 
+			 .scramble(r_scramble),
+			.kout(uio_out[1]), .out(uo_out), .start_sync(1'b1),
+			.din(uio_out[2]), 
+
+			.clk10(uio_out[5]), .reset10(x2), .align(x3),
+			.ready(uio_out[3]), .synced(uio_out[7]));
+
 
 endmodule
