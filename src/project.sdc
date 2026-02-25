@@ -16,14 +16,14 @@ set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks rp2040_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks rp2040_clk ]
 
 #  s8b10.clk10   clock is generated internally
-create_clock [ get_pins -filter {DIRECTION == OUT} -leaf -of_objects [ get_nets "s8b10.clk10" ] ]  -name ser_clk -period $::env(CLOCK_PERIOD)
+create_clock [ get_pins -filter {DIRECTION == OUT} -of_objects [ get_nets "s8b10.clk10" ] ]  -name ser_clk -period $::env(CLOCK_PERIOD)
 set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] $all_inputs_wo_clk
 set_output_delay $output_delay_value -clock [ get_clocks ser_clk ] [ all_outputs ]
 set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks ser_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks ser_clk ]
 
 #  d10b8.clk10   clock is generated internally
-create_clock [ get_pins -filter {DIRECTION == OUT} -leaf -of_objects [ get_nets "d10b8.clk10" ] ]  -name des_clk -period $::env(CLOCK_PERIOD)
+create_clock [ get_pins -filter {DIRECTION == OUT} -of_objects [ get_nets "d10b8.clk10" ] ]  -name des_clk -period $::env(CLOCK_PERIOD)
 set_input_delay $input_delay_value -clock [ get_clocks des_clk ] $all_inputs_wo_clk
 set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ all_outputs ]
 set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks des_clk ]
