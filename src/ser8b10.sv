@@ -31,7 +31,7 @@ module ser8b10(input clk, input reset,  output dout, // high speed
 	reg	   [9:0]r_d, c_d;	// 7/10 clock setup to r_d from everywhere except r_d and r_count
 	assign dout = r_d[9];
 	reg			r_ready;	// 3/10 clock setup from ready
-	reg			r_clk10;
+(*gclk *) 	reg			r_clk10;
 	assign clk10 = r_clk10;
 	reg [3:0]r_count;
 	reg		 r_reset;		// 5/10 clock setup to clok10 domain

@@ -44,7 +44,7 @@ module des8b10(input clk, input reset, input din,
 	//		there are no runt clocks (as a side effect we miss the next symbol in the stream)
     //
 
-	reg		 r_clk10;	
+(* gclk *)	reg		 r_clk10;	
 	assign clk10 = r_clk10;
 	reg		 r_reset;
 	assign reset10 = r_reset;
