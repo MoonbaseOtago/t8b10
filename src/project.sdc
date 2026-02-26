@@ -17,45 +17,43 @@ set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks rp2040_clk ]
 
 #  s8b10.clk10   clock is generated internally
 create_generated_clock [get_pins "\s8b10.r_clk10_sg13g2_dfrbpq_1_Q/Q" ] -source [get_pins "\s8b10.r_clk10_sg13g2_dfrbpq_1_Q/CLK"]  -divide_by 10 -name ser_clk
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[0\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[1\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[2\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[3\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[4\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[5\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[6\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[7\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "uio_in\[0\]"
-set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "uio_in\[4\]"
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[0\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[1\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[2\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[3\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[4\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[5\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[6\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "ui_in\[7\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "uio_in\[0\]" ]
+set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] [ get_ports "uio_in\[4\]" ]
 set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks ser_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks ser_clk ]
 
 #  d10b8.clk10   clock is generated internally
-# create_clock "\d10b8.r_clk10"  -name des_clk -period $::env(CLOCK_PERIOD)
 create_generated_clock [get_pins "\d10b8.r_clk10_sg13g2_dfrbpq_1_Q/Q" ] -source [get_pins "\d10b8.r_clk10_sg13g2_dfrbpq_1_Q/CLK"]  -divide_by 10 -name ser_clk 
-#set_input_delay $input_delay_value -clock [ get_clocks des_clk ] $all_inputs_wo_clk
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\0\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\1\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\2\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\3\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\4\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\5\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\6\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\7\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uio_out[\1\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uio_out[\3\]"
-set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uio_out[\7\]"
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\0\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\1\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\2\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\3\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\4\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\5\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\6\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uo_out[\7\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uio_out[\1\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uio_out[\3\]" ]
+set_output_delay $output_delay_value -clock [ get_clocks des_clk ] [ get_ports "uio_out[\7\]" ]
 set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks des_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks des_clk ]
 
 # rp2040_clk  and  fpga_clk  are mesochronous, and they never interact
-set_clock_groups -asynchronous -group { rp2040_clk } -group { des_clk }
-set_clock_groups -asynchronous -group { rp2040_clk } -group { ser_clk }
-set_clock_groups -asynchronous -group { des_clk } -group { ser_clk }
+set_clock_groups -asynchronous -group { rp2040_clk } -group { des_clk } -group { ser_clk }
+
+# set_clock_groups -asynchronous -group { rp2040_clk } -group { ser_clk }
+# set_clock_groups -asynchronous -group { des_clk } -group { ser_clk }
 
 # Miscellanea
 set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) $all_inputs_wo_clk
 set_load  $cap_load [ all_outputs ]
 set_timing_derate -early [ expr {1-$::env(SYNTH_TIMING_DERATE)} ]
 set_timing_derate -late [ expr {1+$::env(SYNTH_TIMING_DERATE)} ]
-
