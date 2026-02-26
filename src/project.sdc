@@ -16,7 +16,7 @@ set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks rp2040_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks rp2040_clk ]
 
 #  s8b10.clk10   clock is generated internally
-create_clock [ get_nets "\s8b10.r_clk10" ]  -name ser_clk -period $::env(CLOCK_PERIOD)
+create_clock [ get_ports "\s8b10.r_clk10_sg13g2_dfrbpq_1_Q.Q" ]  -name ser_clk -period $::env(CLOCK_PERIOD)
 set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[0\]"
 set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[1\]"
 set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[2\]"
@@ -31,7 +31,7 @@ set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks ser_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks ser_clk ]
 
 #  d10b8.clk10   clock is generated internally
-create_clock [ get_nets "\d10b8.r_clk10" ]  -name des_clk -period $::env(CLOCK_PERIOD)
+create_clock [ get_ports "\d10b8.r_clk10_sg13g2_dfrbpq_1_Q.Q" ]  -name des_clk -period $::env(CLOCK_PERIOD)
 #set_input_delay $input_delay_value -clock [ get_clocks des_clk ] $all_inputs_wo_clk
 set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\0\]"
 set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\1\]"
