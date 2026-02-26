@@ -28,7 +28,7 @@ module tb ();
 
   // Replace tt_um_example with your module name:
   tt_um_8b10 user_project (
-    `ifdef GL_TEST
+    `ifdef USE_POWER_PINS
         .VPWR( 1'b1),     
         .VGND( 1'b0),
     `endif
