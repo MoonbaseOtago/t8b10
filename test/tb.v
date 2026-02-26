@@ -48,7 +48,8 @@ module tb ();
 		forever #10 clk = ~clk;
 	end
 	initial begin
-		#1
+		uio_in <= 0;
+		rst_n <= 0;
 		ui_in <= 1; // turn on scrambling
 		rst_n <= 0;
 		@(posedge clk);
