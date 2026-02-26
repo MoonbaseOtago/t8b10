@@ -24,6 +24,7 @@ module tb ();
   wire [7:0] uio_oe;
   reg done=0;
   reg fail = 0;
+  wire rcv_clk = uio_out[5];
 
   // Replace tt_um_example with your module name:
   tt_um_8b10 user_project (
