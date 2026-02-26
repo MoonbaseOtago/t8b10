@@ -15,11 +15,6 @@ set_output_delay $output_delay_value -clock [ get_clocks rp2040_clk ] [ all_outp
 set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks rp2040_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks rp2040_clk ]
 
-create_generated_clock -name generated_clk \
-                       -source [get_pins clk_div_reg/CLK] \
-                       -divide_by 2 \
-                       [get_pins clk_div_reg/Q]
-
 #  s8b10.clk10   clock is generated internally
 create_generated_clock [get_pins "\s8b10.r_clk10_sg13g2_dfrbpq_1_Q/Q" ] -source [get pins "\s8b10.r_clk10_sg13g2_dfrbpq_1_Q/CLK"]  -divide_by 10 -name ser_clk -period $::env(CLOCK_PERIOD)
 set_input_delay $input_delay_value -clock [ get_clocks ser_clk ] "ui_in\[0\]"
@@ -36,7 +31,7 @@ set_clock_uncertainty $::env(SYNTH_CLOCK_UNCERTAINTY) [ get_clocks ser_clk ]
 set_clock_transition $::env(SYNTH_CLOCK_TRANSITION) [ get_clocks ser_clk ]
 
 #  d10b8.clk10   clock is generated internally
-create_clock "\d10b8.r_clk10"  -name des_clk -period $::env(CLOCK_PERIOD)
+# create_clock "\d10b8.r_clk10"  -name des_clk -period $::env(CLOCK_PERIOD)
 create_generated_clock [get_pins "\d10b8.r_clk10_sg13g2_dfrbpq_1_Q/Q" ] -source [get pins "\d10b8.r_clk10_sg13g2_dfrbpq_1_Q/CLK"]  -divide_by 10 -name ser_clk -period $::env(CLOCK_PERIOD)
 #set_input_delay $input_delay_value -clock [ get_clocks des_clk ] $all_inputs_wo_clk
 set_output_delay $output_delay_value -clock [ get_clocks des_clk ] "uo_out[\0\]"
