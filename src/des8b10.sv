@@ -320,7 +320,7 @@ module des8b10(input clk, input reset, input din,
 			if (~scramble) begin
 				r_out <= {dh, dl};
 			end else begin
-				r_out <= {dh, dl}^lfsr_out;;
+				r_out <= {dh, dl}^lfsr_out;
 			end
 			r_k <= 0;
 		end

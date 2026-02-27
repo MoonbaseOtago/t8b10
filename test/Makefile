@@ -23,6 +23,7 @@ COMPILE_ARGS    += -DFUNCTIONAL
 COMPILE_ARGS    += -DSIM -gspecify 
 VERILOG_SOURCES += $(PDK_ROOT)/ihp-sg13g2/libs.ref/sg13g2_io/verilog/sg13g2_io.v
 VERILOG_SOURCES += $(PDK_ROOT)/ihp-sg13g2/libs.ref/sg13g2_stdcell/verilog/sg13g2_stdcell.v
+#VERILOG_SOURCES += ./sg13g2_stdcell.v
 
 # this gets copied in by the GDS action workflow
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
