@@ -233,37 +233,39 @@ module des8b10(input clk, input reset, input din,
 		endcase
 	end
 
+	reg krd;
 	always @(*) begin
 		k = 1;
 		case (r_d)
-		10'b0010_111100,
-		10'b1101_000011: begin kend = 0; kd = 8'h1c;	end // k28.0	SKP
-		10'b1001_111100,
-		10'b0110_000011: begin kend = 0; kd = 8'h3c;	end // k28.1	FTS
-		10'b1010_111100,
-		10'b0101_000011: begin kend = 0; kd = 8'h5c;	end // k28.2	SDP
-		10'b1100_111100,
-		10'b0011_000011: begin kend = 0; kd = 8'h7c;	end // k28.3	IDL
-		10'b0100_111100,
-		10'b1011_000011: begin kend = 0; kd = 8'h9c;	end // k28.4	-
-		10'b0101_111100,
-		10'b1010_000011: begin kend = 0; kd = 8'hbc;	end // k28.5	COM
-		10'b0110_111100,
-		10'b1001_000011: begin kend = 0; kd = 8'hdc;	end // k28.6	-
-		10'b0001_111100,
-		10'b1110_000011: begin kend = 1; kd = 8'hfc;	end // k28.7	EIE
-		10'b0001_010111,
-		10'b1110_101000: begin kend = 0; kd = 8'hf7;	end // k23.7	PAD
-		10'b0001_011011,
-		10'b1110_100100: begin kend = 0; kd = 8'hfb;	end // k27.7	STP
-		10'b0001_011101,
-		10'b1110_100010: begin kend = 1; kd = 8'hfd;	end // k29.7	END
-		10'b0001_011110,
-		10'b1110_100001: begin kend = 1; kd = 8'hfe;	end // k30.7	EDB
+		10'b0010_111100: begin kend = 0; kd = 8'h1c;    krd = 0;end
+		10'b1101_000011: begin kend = 0; kd = 8'h1c;	krd = 0;end // k28.0	SKP
+		10'b1001_111100: begin kend = 0; kd = 8'h3c;    krd = 1;end
+		10'b0110_000011: begin kend = 0; kd = 8'h3c;	krd = 1;end // k28.1	FTS
+		10'b1010_111100: begin kend = 0; kd = 8'h5c;    krd = 1;end
+		10'b0101_000011: begin kend = 0; kd = 8'h5c;	krd = 1;end // k28.2	SDP
+		10'b1100_111100: begin kend = 0; kd = 8'h7c;    krd = 1;end
+		10'b0011_000011: begin kend = 0; kd = 8'h7c;	krd = 1;end // k28.3	IDL
+		10'b0100_111100: begin kend = 0; kd = 8'h9c;    krd = 0;end
+		10'b1011_000011: begin kend = 0; kd = 8'h9c;	krd = 0;end // k28.4	-
+		10'b0101_111100: begin kend = 0; kd = 8'hbc;    krd = 1;end
+		10'b1010_000011: begin kend = 0; kd = 8'hbc;	krd = 1;end // k28.5	COM
+		10'b0110_111100: begin kend = 0; kd = 8'hdc;    krd = 1;end 
+		10'b1001_000011: begin kend = 0; kd = 8'hdc;	krd = 1;end // k28.6	-
+		10'b0001_111100: begin kend = 1; kd = 8'hfc;    krd = 0;end
+		10'b1110_000011: begin kend = 1; kd = 8'hfc;	krd = 0;end // k28.7	EIE
+		10'b0001_010111: begin kend = 0; kd = 8'hf7;    krd = 0;end
+		10'b1110_101000: begin kend = 0; kd = 8'hf7;	krd = 0;end // k23.7	PAD
+		10'b0001_011011: begin kend = 0; kd = 8'hfb;    krd = 0;end
+		10'b1110_100100: begin kend = 0; kd = 8'hfb;	krd = 0;end // k27.7	STP
+		10'b0001_011101: begin kend = 1; kd = 8'hfd;    krd = 0;end
+		10'b1110_100010: begin kend = 1; kd = 8'hfd;	krd = 0;end // k29.7	END
+		10'b0001_011110: begin kend = 1; kd = 8'hfe;    krd = 0;end
+		10'b1110_100001: begin kend = 1; kd = 8'hfe;	krd = 0;end // k30.7	EDB
 		default: begin
 				k = 0;
 				kend = 1'bx;
 				kd = 8'bx;
+				krd = 1'bx;
 			 end
 		endcase
 	end
@@ -283,6 +285,9 @@ module des8b10(input clk, input reset, input din,
 		r_rd <= sync_set;
 	end else
 	if (!r_syncing) begin
+		if (k) begin
+			if (krd) r_rd <= ~r_rd;
+		end else
 		casez ({rdh, rdl})
 		4'b00_01,
 		4'b01_00: r_rd <= 1;
