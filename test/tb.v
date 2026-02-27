@@ -69,6 +69,7 @@ module tb ();
 		uio_in[0] <= 1;
 		ui_in = 8'hbc;
 		@(posedge uio_out[6]);
+		uio_in[4] <= 0;
 		@(posedge uio_out[6]);
 		@(posedge uio_out[6]);
 		@(posedge uio_out[6]);
@@ -86,15 +87,16 @@ module tb ();
 	end
 
 	always @(posedge uio_out[5])
-	if (uio_out[3]) begin
+	if (rst_n && uio_out[3]) begin
 		if (uo_out != j[7:0]) begin
 			$display("fail!");
+			$displayh(uo_out,,j);
+			@(posedge uio_out[5]);
+			@(posedge uio_out[5]);
+			@(posedge uio_out[5]);
+			@(posedge uio_out[5]);
 			done = 1;
 			fail = 1;
-			@(posedge uio_out[5]);
-			@(posedge uio_out[5]);
-			@(posedge uio_out[5]);
-			@(posedge uio_out[5]);
 			$finish;
 		end
 		j = j+1;
